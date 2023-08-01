@@ -5,7 +5,7 @@ import imdb
 from pyvis.network import Network
 
 st.set_page_config(page_title="Cinema Compass", layout="wide")
-df = pd.read_csv("data.csv") #convert to github link later && specify datatypes of columns later
+df = pd.read_csv("data.csv", dtype={'nconst':object,'primaryName':object,'birthYear':object,'deathYear':object,'primaryProfession':object,'knownForTitles':object}) #convert to github link later
 ia = imdb.Cinemagoer()
 disableMovie = True
 actorList = ["Please choose."]
