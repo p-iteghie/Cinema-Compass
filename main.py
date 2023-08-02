@@ -5,7 +5,7 @@ import imdb
 from pyvis.network import Network
 
 st.set_page_config(page_title="Cinema Compass", layout="wide")
-df = pd.read_csv("data.csv", dtype={'nconst':object,'primaryName':object,'birthYear':object,'deathYear':object,'primaryProfession':object,'knownForTitles':object}) #convert to github link later
+df = pd.read_csv("data.csv", encoding='latin-1', dtype={'nconst':object,'primaryName':object,'birthYear':object,'deathYear':object,'primaryProfession':object,'knownForTitles':object}) #convert to github link later
 ia = imdb.Cinemagoer()
 disableMovie = True
 actorList = ["Please choose."]
@@ -20,15 +20,15 @@ def getMovieNames():
     curActor = st.session_state.actor
     if curActor == 'Please choose.':
         disableMovie = True
+        movieIds = []
         movieList = []
     else:
         disableMovie = False
         df.set_index("primaryName", inplace=True)
-        idString = df.loc[curActor:curActor, 'knownForTitles':].values.flatten().tolist()
-        movieIds = idString[0].split(",")
+        movieIds = df.loc[curActor:curActor, 'knownForTitles':].values.flatten().tolist()
         movieList = []
         for x in movieIds:
-            movieList.append(ia.get_movie(x[2:])['title'])
+            movieList.append(ia.get_movie(x[2:])['title']) #FIXME
     st.write(movieList) # testing
 
 choose_actor = st.sidebar.selectbox(
