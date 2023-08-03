@@ -7,6 +7,7 @@ from pyvis.network import Network
 st.set_page_config(page_title="Cinema Compass", layout="wide")
 df = pd.read_csv("data.csv", encoding='latin-1', dtype={'nconst':object,'primaryName':object,'birthYear':object,'deathYear':object,'primaryProfession':object,'knownForTitles':object}) #convert to github link later
 ia = imdb.Cinemagoer()
+coworkers = pd.DataFrame()
 disableMovie = True
 actorList = ["Please choose."]
 movieIds = []
@@ -16,19 +17,21 @@ if "actor" not in st.session_state:
     st.session_state.actor = "Please choose."
 
 def getMovieNames():
-    global movieList,disableMovie,movieIds
+    global movieList,disableMovie,movieIds,coworkers
     curActor = st.session_state.actor
     if curActor == 'Please choose.':
         disableMovie = True
         movieIds = []
         movieList = []
+        coworkers = coworkers.iloc[0:0]
     else:
         disableMovie = False
-        df.set_index("primaryName", inplace=True)
-        movieIds = df.loc[curActor:curActor, 'knownForTitles':].values.flatten().tolist()
+        movieIds = df.loc[df['primaryName'] == curActor, 'knownForTitles':].values.flatten().tolist()
         movieList = []
-        for x in movieIds:
-            movieList.append(ia.get_movie(x[2:])['title']) #FIXME
+        #for x in movieIds:
+        #    movieList.append(ia.get_movie(x[2:])['title']) #FIXME
+        coworkers = df.loc[(df['primaryName'] != curActor) & (df.isin(movieIds).any(axis=1))]
+    coworkers
     st.write(movieList) # testing
 
 choose_actor = st.sidebar.selectbox(
