@@ -51,7 +51,7 @@ coworkerList = [st.session_state.actor] + coworkers['primaryName'].tolist()
 coworkerDict = {} # we can make the adjacency matrix using only numbers with this dictionary
 
 for i in range(len(coworkerList)):
-    coworkerDict[i] = coworkerList[i]
+    coworkerDict[coworkerList[i]] = i
 
 st.write(coworkerDict)
 
