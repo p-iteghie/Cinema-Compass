@@ -32,7 +32,7 @@ def getMovieNames():
         #    movieList.append(ia.get_movie(x[2:])['title']) #FIXME
         coworkers = df.loc[(df['primaryName'] != curActor) & (df.isin(movieIds).any(axis=1))]
     coworkers
-    st.write(movieList) # testing
+    #st.write(movieList) # testing
 
 choose_actor = st.sidebar.selectbox(
     "Pick an Actor",
@@ -47,7 +47,22 @@ actorNetwork = Network(
     font_color='white'
     )
 
-actorNetwork.add_node(1, label=choose_actor) # testing
+coworkerList = [st.session_state.actor] + coworkers['primaryName'].tolist()
+coworkerDict = {} # we can make the adjacency matrix using only numbers with this dictionary
+
+for i in range(len(coworkerList)):
+    coworkerDict[i] = coworkerList[i]
+
+st.write(coworkerDict)
+
+#person = ia.get_person(df.loc[df['primaryName'] == st.session_state.actor, 'nconst'].values.flatten().tolist()[0][2:])
+#st.write(person['headshot'])
+
+#actorNetwork.add_node(0, label=choose_actor, shape='circularImage',image=person['headshot']) # testing
+actorNetwork.add_node(0, label=choose_actor) # testing
+#st.write([st.session_state.actor] + coworkers['primaryName'].tolist())
+actorNetwork.add_nodes(coworkers['primaryName'].tolist())
+#st.write(actorNetwork.get_node(0))
 
 try: # idk what path should be rn
     path = '/tmp'
