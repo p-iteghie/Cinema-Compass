@@ -1,18 +1,10 @@
-import streamlit as st
-import streamlit.components.v1 as components
 import pandas as pd
-import time
-from IPython.display import display
 import numpy as np
-import imdb
-import os
-import networkx as nx
-from pyvis.network import Network
 
 
 class CSV_handle:
     def __init__(self,data_frame):
-        df = pd.read_csv(data_frame, encoding='latin-1',dtype={'nconst': object, 'primaryName': object, 'birthYear': object, 'deathYear': object,'primaryProfession': object, 'knownForTitles': object})  # convert to github link later
+        df = pd.read_csv(data_frame, encoding='latin-1',dtype={'nconst': object, 'primaryName': object, 'birthYear': object, 'deathYear': object,'primaryProfession': object, 'knownForTitles': object})
         self.names = df['primaryName'].to_numpy()[0:20000]
         self.movies_1 = df['knownForTitles'].to_numpy()[0:20000]
         self.movies_2 = df['Unnamed: 6'].to_numpy()[0:20000]
@@ -69,7 +61,7 @@ class CSV_handle:
         for numpy_array in self.adjacency_list:
             df = pd.DataFrame(numpy_array)
             df = df.transpose().astype((int))[0:20000]
-            df.to_csv('adjacency_listF.csv', header=False,index=False, mode='a') #change the name of the output file
+            df.to_csv('adjacencyListFinal.csv', header=False,index=False, mode='a') #change the name of the output file
     def initial_setup(self):
         index = 0
         for numpy_array in self.adjacency_list:
