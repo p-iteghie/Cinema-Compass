@@ -16,23 +16,23 @@ class CSV_handle:
         self.initial_setup()
         self.edge_adder(self.movies_1, self.movies_4, False)
         self.edge_adder(self.movies_1, self.movies_3, False)
-        self.edge_adder(self.movies_1,self.movies_2,False)#
-        self.edge_adder(self.movies_1,self.movies_1,True)#
+        self.edge_adder(self.movies_1,self.movies_2,False)  # stable configuration
+        self.edge_adder(self.movies_1,self.movies_1,True)  # stable configuration
 
         self.edge_adder(self.movies_2, self.movies_4, False)
         self.edge_adder(self.movies_2, self.movies_3, False)
-        self.edge_adder(self.movies_2, self.movies_1, False)#
-        self.edge_adder(self.movies_2, self.movies_2, True)#
+        self.edge_adder(self.movies_2, self.movies_1, False)  # stable configuration
+        self.edge_adder(self.movies_2, self.movies_2, True)  # stable configuration
 
         self.edge_adder(self.movies_3, self.movies_4, False)
         self.edge_adder(self.movies_3, self.movies_3, True)
-        self.edge_adder(self.movies_3, self.movies_1, False)  #
-        self.edge_adder(self.movies_3, self.movies_2, False)  #
+        self.edge_adder(self.movies_3, self.movies_1, False)  # stable configuration
+        self.edge_adder(self.movies_3, self.movies_2, False)  # stable configuration
 
         self.edge_adder(self.movies_4, self.movies_4, True)
         self.edge_adder(self.movies_4, self.movies_3, False)
-        self.edge_adder(self.movies_4, self.movies_1, False)  #
-        self.edge_adder(self.movies_4, self.movies_2, False)  #
+        self.edge_adder(self.movies_4, self.movies_1, False)  # stable configuration
+        self.edge_adder(self.movies_4, self.movies_2, False)  # stable configuration
 
         print("done")
         self.pad_arrays()
